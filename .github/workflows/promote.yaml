@@ -1,0 +1,9 @@
+name: promote
+on: [workflow_dispatch]
+jobs:
+  version:
+    name: Get Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
