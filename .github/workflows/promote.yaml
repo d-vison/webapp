@@ -1,9 +1,16 @@
 name: promote
-on: [workflow_dispatch]
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        default: v1.0.0
+        required: true
+
 jobs:
   version:
     name: Get Version
     runs-on: ubuntu-latest
     steps:
-      - name: Clone Repository
-        uses: actions/checkout@v2
+      - name: SHow Version
+        run: echo ${{ github.event.inputs.version }}
