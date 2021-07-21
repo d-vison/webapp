@@ -20,8 +20,9 @@ jobs:
       - name: Show Version
         run: echo ${{ github.event.inputs.version }}
       - name: "Read file contents"
+        id: file
         uses: andstor/file-reader-action@v1
         with:
           path: "versions.json"
       - name: SHow file contents
-        run: echo "${ steps.read_file.outputs.contents }"
+        run: echo "${ steps.file.outputs.contents }"
