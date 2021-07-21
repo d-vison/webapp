@@ -15,12 +15,13 @@ jobs:
     name: Get Version
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
       - name: Show Version
         run: echo ${{ github.event.inputs.version }}
-      - name: Read versions.json
-        id: versions
-        uses: juliangruber/read-file-action@v1
+      - name: "Read file contents"
+        uses: andstor/file-reader-action@v1
         with:
-          path: ${{ github.event.inputs.version }}
-      - name: Echo versions.json
-        run: echo "${{ steps.versions.outputs.content }}"
+          path: "versions.json"
+      - name: SHow file contents
+        run: echo "${ steps.read_file.outputs.contents }"
