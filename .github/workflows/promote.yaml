@@ -4,7 +4,7 @@ on:
     inputs:
       version:
         description: filePath
-        default: versions.json
+        default: versions.yaml
         required: true
 
 env:
@@ -23,6 +23,6 @@ jobs:
         id: file
         uses: andstor/file-reader-action@v1
         with:
-          path: "versions.json"
+          path: ${{ github.event.inputs.version }}
       - name: SHow file contents
         run: echo "${ steps.file.outputs.contents }"
