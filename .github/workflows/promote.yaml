@@ -25,4 +25,4 @@ jobs:
         with:
           path: ${{ github.event.inputs.version }}
       - name: SHow file contents
-        run: echo "${ steps.file.outputs.contents }"
+        run: echo ${{ steps.file.outputs.contents }}
