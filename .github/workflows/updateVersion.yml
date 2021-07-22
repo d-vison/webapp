@@ -9,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: pocket-apps/action-update-version@v1
+      - name: Update Versions
+        uses: fjogeleit/yaml-update-action@master
         with:
-          files: 'versions.yaml'
-          version-regexp: '\d+.\d+.\d+'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          valueFile: 'versions.yaml'
+          propertyPath: 'edjapi'
+          value: v1.0.1
+          commitChange: true
+          message: 'CI Update Version'
+          updateFile: true
