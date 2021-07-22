@@ -44,5 +44,7 @@ jobs:
           file: ${{ github.event.inputs.file }}
           api: "edjapi"
           console: "edjconsole"
-      - name: Show Versions
+      - name: Show API Version
         run: echo ${{ steps.data.outputs.api }}
+      - name: Show Console Version
+        run: echo ${{ steps.data.outputs.console }}
