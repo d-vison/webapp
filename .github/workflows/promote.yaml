@@ -2,12 +2,16 @@ name: promote
 on: 
   workflow_dispatch:
     inputs:
+      component:
+        description: component
+        default: edjapi
+        required: true
       version:
         description: version
         default: 1.0.0
         required: true
       file:
-        description: filePath
+        description: file
         default: versions.yaml
         required: true
 
@@ -25,6 +29,15 @@ jobs:
         run: echo ${{ github.event.inputs.version }}
       - name: Show File
         run: echo ${{ github.event.inputs.file }}
+      - name: Update Versions
+        uses: fjogeleit/yaml-update-action@master
+        with:
+          valueFile: ${{ github.event.inputs.file }}
+          propertyPath: ${{ github.event.inputs.component }}
+          value: ${{ github.event.inputs.version }}
+          commitChange: true
+          message: 'CI Update Version'
+          updateFile: true
       - name: "Read file contents"
         id: file
         uses: andstor/file-reader-action@v1
