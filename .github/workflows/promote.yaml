@@ -41,3 +41,5 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
           file: ${{ github.event.inputs.file }}
+          api: edjapi
+          console: edjconsole
