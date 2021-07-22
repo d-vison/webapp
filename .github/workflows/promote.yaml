@@ -15,9 +15,6 @@ on:
         default: versions.yaml
         required: true
 
-env:
-  TERRAFORM_CLOUD_TOKENS: app.terraform.io=${{ secrets.TF_CLOUD_TOKEN }}
-
 jobs:
   version:
     name: Get Version
@@ -36,6 +33,8 @@ jobs:
           propertyPath: ${{ github.event.inputs.component }}
           value: ${{ github.event.inputs.version }}
           commitChange: true
+          branch: main 
+          targetBranch: main
           message: 'CI Update Version'
           updateFile: true
       - name: "Read file contents"
