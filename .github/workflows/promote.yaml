@@ -38,10 +38,11 @@ jobs:
           message: 'CI Update Version'
           updateFile: true
       - name: Read Versions
+        id: data
         uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
           file: ${{ github.event.inputs.file }}
           api: "edjapi"
           console: "edjconsole"
       - name: Show Versions
-        run: echo api
+        run: echo ${{ steps.data.outputs.api }}
