@@ -43,4 +43,4 @@ jobs:
         with:
           file: ${{ github.event.inputs.file }}
       - name: Show API
-        run: echo ${{ steps.data.outputs.edapi }
+        run: echo ${{ steps.data.outputs.edapi })
