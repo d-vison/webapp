@@ -37,8 +37,7 @@ jobs:
           targetBranch: main
           message: 'CI Update Version'
           updateFile: true
-      - name: "Read file contents"
-        id: file
-        uses: andstor/file-reader-action@v1
+      - name: Read Versions
+        uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
-          path: ${{ github.event.inputs.file }}
+          file: ${{ github.event.inputs.file }}
