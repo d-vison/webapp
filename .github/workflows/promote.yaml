@@ -16,14 +16,31 @@ on:
         required: true
 
 jobs:
+  stack:
+    name: Set Stack
+    runs-on: ubuntu-latest
+    outputs: 
+      stack: ${{ steps.automatic.outputs.stack }} || ${{ steps.manual.outputs.stack }}
+    
+    steps:
+      - name: automatic
+        if: github.event.inputs.version == '1.0'
+        id: automatic
+        run: echo "::set-output name=stack::development"
+
+      - name: manual
+        if: github.event.inputs.version == '2.0'
+        id: manual
+        run: echo "::set-output name=stack::${{ github.event.inputs.version }}"
   version:
     name: Get Version
     runs-on: ubuntu-latest
+    needs: stack
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Show Version
-        run: echo ${{ github.event.inputs.version }}
+        run: echo ${{needs.stack.outputs.stack}}
       - name: Show File
         run: echo ${{ github.event.inputs.file }}
       - name: Update Versions
