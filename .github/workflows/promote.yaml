@@ -7,7 +7,7 @@ on:
         default: edjapi
         required: true
       version:
-        description: version
+        description: Set Version
         default: 1.0.0
         required: true
       file:
