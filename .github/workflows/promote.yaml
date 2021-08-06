@@ -20,7 +20,7 @@ jobs:
     name: Set Stack
     runs-on: ubuntu-latest
     outputs: 
-      stack: ${{ steps.automatic.outputs.stack }} || ${{ steps.manual.outputs.stack }}
+      stack: ${{ steps.automatic.outputs.stack }}${{ steps.manual.outputs.stack }}
     
     steps:
       - name: automatic
