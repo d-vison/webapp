@@ -2,6 +2,14 @@ name: promote
 on: 
   workflow_dispatch:
     inputs:
+      stack:
+        description: Deploy To (development, load, staging, production)
+        default: development
+        required: true
+      promote:
+        description: Promote Versions (true/false)
+        required: false 
+        default: "false"
       component:
         description: component
         default: edjapi
@@ -31,12 +39,11 @@ jobs:
       - name: manual
         if: github.event.inputs.version == '2.0'
         id: manual
-        run: echo "::set-output name=stack::${{ github.event.inputs.version }}"
+        run: echo "::set-output name=stack::${{ github.event.inputs.stack }}"
 
   manifest:
     name: Set Manifest
     runs-on: ubuntu-latest
-    if: github.event.inputs.version == '1.0'
     needs: stack
 
     steps:
@@ -46,16 +53,33 @@ jobs:
   version:
     name: Get Version
     runs-on: ubuntu-latest
-    if: needs.stack.outputs.stack == 'development' && (github.event.inputs.component == 'edjapi' || github.event.inputs.component == 'edjconsole')
     needs: [stack, manifest]
+
+    strategy:
+      matrix:
+        variable: [
+          api, 
+          ca, 
+          console, 
+          eventconsumer, 
+          events, 
+          messenger, 
+          proxy, 
+          syncFeeds, 
+          watchdog, 
+          authorizer
+        ]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      - name: Show Version
-        run: echo ${{ needs.stack.outputs.stack }}
-      - name: Show File
-        run: echo ${{ github.event.inputs.file }}
+
+      - name: Show Inputs
+        run: echo "Stack:${{ github.event.inputs.stack }}\promote:${{ github.event.inputs.promote }}\nComponent:${{ github.event.inputs.component }}\Version:${{ github.event.inputs.version }}\nFile:${{ github.event.inputs.file }}"
+      
+      - name: Show Outputs
+        run: echo ${{ needs.stack.outputs.name }}
+
       - name: Update Versions
         uses: fjogeleit/yaml-update-action@master
         with:
@@ -67,14 +91,13 @@ jobs:
           targetBranch: main
           message: 'CI Update Version'
           updateFile: true
+
       - name: Read Versions
         id: data
         uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
           file: ${{ github.event.inputs.file }}
-          api: "edjapi"
-          console: "edjconsole"
-      - name: Show API Version
-        run: echo ${{ steps.data.outputs.api }}
-      - name: Show Console Version
-        run: echo ${{ steps.data.outputs.console }}
+          component: ${{ matrix.variables }}
+
+      - name: Show Versions
+        run: echo ${{ steps.data.outputs.component }}
