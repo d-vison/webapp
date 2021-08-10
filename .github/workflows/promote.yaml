@@ -3,6 +3,14 @@ name: promote
 on: 
   workflow_dispatch:
     inputs:
+      stack:
+        description: Deploy To (development, load, staging, production)
+        default: development
+        required: true
+      promote:
+        description: Promote Versions (true/false)
+        required: false 
+        default: "false"
       component:
         description: component
         default: api
