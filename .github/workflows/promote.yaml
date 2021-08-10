@@ -46,7 +46,7 @@ jobs:
   version:
     name: Get Version
     runs-on: ubuntu-latest
-    if: always() && (github.event_name == 'workflow_dispatch' && needs.stack.outputs.name == 'edjconsole')
+    if: ${{ always() }} && (github.event_name == 'workflow_dispatch' && needs.stack.outputs.name == 'edjconsole')
     needs: [stack, manifest]
 
     steps:
