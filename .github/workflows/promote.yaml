@@ -47,7 +47,7 @@ jobs:
     name: Get Version
     runs-on: ubuntu-latest
     if: always()
-    needs: manifest
+    needs: [stack, manifest]
 
     steps:
       - name: Checkout code
