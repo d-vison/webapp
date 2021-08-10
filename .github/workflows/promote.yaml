@@ -36,16 +36,17 @@ jobs:
   manifest:
     name: Set Manifest
     runs-on: ubuntu-latest
+    if: github.event.inputs.version == '1.0'
     needs: stack
 
     steps:
       - name: Update 
-        if: github.event.inputs.version == '1.0'
         run: echo ${{ needs.stack.outputs.stack }}
 
   version:
     name: Get Version
     runs-on: ubuntu-latest
+    if: always()
     needs: manifest
 
     steps:
