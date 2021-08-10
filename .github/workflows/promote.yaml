@@ -46,7 +46,7 @@ jobs:
   version:
     name: Get Version
     runs-on: ubuntu-latest
-    if: needs.manifest.status != 'failed'
+    if:  ${{ !=failure() }}
     needs: [stack, manifest]
 
     steps:
