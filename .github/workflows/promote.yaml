@@ -106,7 +106,7 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
           file: ${{ github.event.inputs.file }}
-          component: ${{ matrix.variables }}
+          component: ${{ matrix.variable }}
 
       - name: Show Versions
         run: echo ${{ steps.data.outputs.component }}
