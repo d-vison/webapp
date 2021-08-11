@@ -99,9 +99,11 @@ jobs:
 
     steps:
       - name: Checkout code
+        if: github.event.inputs.version == '1.0'
         uses: actions/checkout@v1
 
       - name: Read Versions
+        if: github.event.inputs.version == '1.0'
         id: data
         uses: CumulusDS/get-yaml-paths-action@v0.1.0
         with:
@@ -109,4 +111,5 @@ jobs:
           component: ${{ matrix.variable }}
 
       - name: Show Versions
+        if: github.event.inputs.version == '1.0'
         run: echo ${{ steps.data.outputs.component }}
