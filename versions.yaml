@@ -1,5 +1,10 @@
-edjapi: '1.0'
-console: 2.3
-version: 2.0.0
-edjconsole: '2.0'
 api: '1.0'
+ca: '1.0' 
+console: '1.0' 
+eventconsumer: '1.0' 
+events: '1.0' 
+messenger: '1.0' 
+proxy: '1.0' 
+syncFeeds: '1.0' 
+watchdog: '1.0' 
+authorizer: '2.0'
