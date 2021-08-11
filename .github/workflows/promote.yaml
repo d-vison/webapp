@@ -51,6 +51,32 @@ jobs:
       - name: Update 
         run: echo ${{ needs.stack.outputs.stack }}
 
+      - name: Show Inputs
+        run: echo "Stack:${{ github.event.inputs.stack }}\promote:${{ github.event.inputs.promote }}\nComponent:${{ github.event.inputs.component }}\Version:${{ github.event.inputs.version }}\nFile:${{ github.event.inputs.file }}"
+      
+      - name: Show Outputs
+        run: echo ${{ needs.stack.outputs.name }}
+
+  update:
+    name: Set Version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Update Versions
+        uses: fjogeleit/yaml-update-action@master
+        with:
+          valueFile: ${{ github.event.inputs.file }}
+          propertyPath: ${{ github.event.inputs.component }}
+          value: ${{ github.event.inputs.version }}
+          commitChange: true
+          branch: main 
+          targetBranch: main
+          message: 'CI Update Version'
+          updateFile: true
+
   version:
     name: Get Version
     runs-on: ubuntu-latest
@@ -74,24 +100,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-
-      - name: Show Inputs
-        run: echo "Stack:${{ github.event.inputs.stack }}\promote:${{ github.event.inputs.promote }}\nComponent:${{ github.event.inputs.component }}\Version:${{ github.event.inputs.version }}\nFile:${{ github.event.inputs.file }}"
-      
-      - name: Show Outputs
-        run: echo ${{ needs.stack.outputs.name }}
-
-      - name: Update Versions
-        uses: fjogeleit/yaml-update-action@master
-        with:
-          valueFile: ${{ github.event.inputs.file }}
-          propertyPath: ${{ github.event.inputs.component }}
-          value: ${{ github.event.inputs.version }}
-          commitChange: true
-          branch: main 
-          targetBranch: main
-          message: 'CI Update Version'
-          updateFile: true
 
       - name: Read Versions
         id: data
