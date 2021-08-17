@@ -65,7 +65,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
         with:
-          ref: versions
+          ref: version
 
       - name: Update Versions
         uses: fjogeleit/yaml-update-action@master
