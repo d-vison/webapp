@@ -25,53 +25,6 @@ on:
         required: true
 
 jobs:
-  test:
-    name: Code Tests 
-    runs-on: ubuntu-latest
-
-    steps:   
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Unit Test
-        run: npm run test:ci
-        env:
-          NODE_ENV: test
-          API_NETWORK_DOMAIN: edjx.test
-
-      - name: Coverage
-        run: npm run test:coverage
-        env:
-          NODE_ENV: test
-          API_NETWORK_DOMAIN: edjx.test
-  
-  lint:
-    name: Code Linter 
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Use Node.js 14x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Static Code Analysis
-        run: npm run lint:ci
-        
   stack:
     name: Set Stack
     runs-on: ubuntu-latest
