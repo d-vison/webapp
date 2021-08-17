@@ -76,6 +76,7 @@ jobs:
           targetBranch: main
           message: 'CI Update Version'
           updateFile: true
+          token: ${{ secrets.TESTCI }}
 
   version:
     name: Get Version
