@@ -64,6 +64,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
+        with:
+          ref: versions
 
       - name: Update Versions
         uses: fjogeleit/yaml-update-action@master
@@ -72,11 +74,8 @@ jobs:
           propertyPath: ${{ github.event.inputs.component }}
           value: ${{ github.event.inputs.version }}
           commitChange: true
-          branch: main 
-          targetBranch: main
           message: 'CI Update Version'
           updateFile: true
-          token: ${{ secrets.TESTCI }}
 
   version:
     name: Get Version
