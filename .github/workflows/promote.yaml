@@ -76,6 +76,8 @@ jobs:
           commitChange: true
           message: 'CI Update Version'
           updateFile: true
+          branch: versions
+          targetBranch: versions
 
   version:
     name: Get Version
